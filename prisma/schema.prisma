@@ -1,0 +1,84 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Account {
+  id                String  @id @default(cuid()) @map("_id")
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid()) @map("_id")
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model User {
+  id            String    @id @default(cuid()) @map("_id")
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  role          String    @default("user")
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  accounts      Account[]
+  sessions      Session[]
+}
+
+model Movie {
+  id          String               @id @default(cuid()) @map("_id")
+  tmdbid      Int                  @unique
+  title       String
+  year        String
+  poster      String
+  stage       String               @default("new")
+  createdAt   DateTime             @default(now())
+  updatedAt   DateTime             @updatedAt
+  movieArtist MovieArtistMapping[] @relation("MovieMapping")
+}
+
+model Artist {
+  id           String               @id @default(cuid()) @map("_id")
+  castid       Int                  @unique
+  name         String
+  profileimage String
+  createdAt    DateTime             @default(now())
+  updatedAt    DateTime             @updatedAt
+  movieArtist  MovieArtistMapping[] @relation("ArtistMapping")
+}
+
+model MovieArtistMapping {
+  id        String   @id @default(cuid()) @map("_id")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  movie     Movie?   @relation("MovieMapping", fields: [movieId], references: [tmdbid])
+  movieId   Int?
+  artist    Artist?  @relation("ArtistMapping", fields: [artistId], references: [castid])
+  artistId  Int?
+  order     Int
+}

@@ -12,7 +12,7 @@ function MoviesList({ movieYear, movies, setMovies, currPage, setTotalPages }) {
   } = useQuery(["movies", movieYear, currPage], () =>
     getMoviesByYear(movieYear, currPage)
   );
-  console.log(movieslistbyyear);
+  //console.log(movieslistbyyear);
   useEffect(() => {
     if (isFetched) {
       setTotalPages(movieslistbyyear.total_pages);
@@ -22,18 +22,18 @@ function MoviesList({ movieYear, movies, setMovies, currPage, setTotalPages }) {
   if (isLoading)
     return <div className="flex justify-center items-center">Loading....</div>;
 
-  const handleAddMovieIds = (id, title, year, poster) => {
-    const movieExists = movies.some((movie) => movie.id === id);
+  const handleAddMovieIds = (tmdbid, title, year, poster) => {
+    const movieExists = movies.some((movie) => movie.id === tmdbid);
     if (!movieExists) {
       const movie = {
-        id,
+        tmdbid,
         title,
         year,
         poster,
       };
       setMovies((prevMovies) => [...prevMovies, movie]);
     } else {
-      const updatedMovies = movies.filter((movie) => movie.id !== id);
+      const updatedMovies = movies.filter((movie) => movie.id !== tmdbid);
       setMovies(updatedMovies);
     }
   };
@@ -48,7 +48,7 @@ function MoviesList({ movieYear, movies, setMovies, currPage, setTotalPages }) {
           <div
             key={i}
             className={`w-[150px] h-[300px] flex flex-col justify-between border items-center border-black ${
-              movies.some((_movie) => _movie.id === movie.id) &&
+              movies.some((_movie) => _movie.tmdbid === movie.id) &&
               "ring-4 ring-green-500"
             } `}
             onClick={() =>
@@ -56,12 +56,12 @@ function MoviesList({ movieYear, movies, setMovies, currPage, setTotalPages }) {
                 movie.id,
                 movie.title,
                 movie.release_date.split("-")[0],
-                movie.poster_path
+                `https://image.tmdb.org/t/p/w500${movie.poster_path}`
               )
             }
           >
             <Image
-              src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+              src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
               alt={movie.title}
               width={150}
               height={70}

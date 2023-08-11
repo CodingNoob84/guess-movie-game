@@ -2,13 +2,22 @@
 import React, { useEffect, useState } from "react";
 
 import MoviesList from "./MoviesList";
+import { insertMovies } from "@/utils/dbservices";
 
 function MoviesPagination({ movieYear }) {
   const [movies, setMovies] = useState([]);
   const [currPage, setCurrPage] = useState(1);
   const [totalPages, setTotalPages] = useState(5);
+  const [loading, setLoading] = useState(false);
+  //console.log(currPage);
 
-  console.log(currPage);
+  const handleSubmit = async () => {
+    setLoading(true);
+    //console.log(movies);
+    const result = await insertMovies(movies);
+    //console.log(result);
+    setLoading(false);
+  };
 
   return (
     <div className="flex flex-col mx-5">
@@ -58,8 +67,12 @@ function MoviesPagination({ movieYear }) {
         </div>
       </div>
       <div className="flex flex-row my-5 justify-center items-center">
-        <button className="border px-4 py-1 bg-green-300 font-bold flex justify-center items-center text-center hover:scale-110 ">
-          <span>Submit ({movies.length})</span>
+        <button
+          className="border px-4 py-1 bg-green-300 font-bold flex justify-center items-center text-center hover:scale-110 "
+          onClick={() => handleSubmit()}
+          disabled={loading}
+        >
+          <span>{loading ? `Loading` : `Submit (${movies.length})`} </span>
         </button>
       </div>
     </div>

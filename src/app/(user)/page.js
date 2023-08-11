@@ -1,11 +1,22 @@
+import { getServerSession } from "next-auth";
 import Image from "next/image";
+import { redirect } from "next/navigation";
+import { AuthOptions } from "../api/auth/[...nextauth]/route";
+import Link from "next/link";
+import AdminLink from "@/components/UIParts/AdminLink";
 
-export default function Home() {
+export default async function Home() {
+  const session = await getServerSession(AuthOptions);
+  console.log(session);
+  if (!session) {
+    redirect("/login");
+  }
   return (
     <div className="flex-1 overflow-y-auto">
+      {session.user.role === "admin" && <AdminLink />}
       <div className="flex flex-row justify-center items-center p-2 gap-2">
-        <button class="flex h-9 w-9 items-center justify-center rounded-full border-2 text-xs border-black">
-          <span class="flex h-6 w-6 items-center justify-center rounded-full bg-green-600">
+        <button className="flex h-9 w-9 items-center justify-center rounded-full border-2 text-xs border-black">
+          <span className="flex h-6 w-6 items-center justify-center rounded-full bg-green-600">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="15"
@@ -13,17 +24,17 @@ export default function Home() {
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
-              stroke-width="4"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="h-4 w-4 text-white"
+              strokeWidth="4"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="h-4 w-4 text-white"
             >
               <path d="M20 6L9 17L4 12" />
             </svg>
           </span>
         </button>
-        <button class="flex h-9 w-9 items-center justify-center rounded-full border-2 text-xs border-black">
-          <span class="flex h-6 w-6 items-center justify-center rounded-full bg-red-600">
+        <button className="flex h-9 w-9 items-center justify-center rounded-full border-2 text-xs border-black">
+          <span className="flex h-6 w-6 items-center justify-center rounded-full bg-red-600">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="15"
@@ -31,18 +42,18 @@ export default function Home() {
               viewBox="0 0 15 15"
               fill="none"
               stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="h-4 w-4 text-white"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="h-4 w-4 text-white"
             >
               <line x1="12" y1="3" x2="3" y2="12" />
               <line x1="3" y1="3" x2="12" y2="12" />
             </svg>
           </span>
         </button>
-        <button class="flex h-9 w-9 items-center justify-center rounded-full border-2 text-xs border-black">
-          <span class="flex h-6 w-6 items-center justify-center rounded-full"></span>
+        <button className="flex h-9 w-9 items-center justify-center rounded-full border-2 text-xs border-black">
+          <span className="flex h-6 w-6 items-center justify-center rounded-full"></span>
         </button>
       </div>
       <div className="flex flex-row justify-center items-center m-2 p-2">
