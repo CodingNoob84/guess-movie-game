@@ -1,6 +1,7 @@
 import Image from "next/image";
 import React from "react";
 import { AiOutlineLogout } from "react-icons/ai";
+import LogOut from "../UIParts/LogOut";
 
 function NavBar({ session }) {
   return (
@@ -19,9 +20,7 @@ function NavBar({ session }) {
             className="rounded-full"
           />
         </div>
-        <div className="w-[30px] h-[30px] flex justify-center items-center rounded-full bg-white">
-          <AiOutlineLogout className="scale-75 hover:scale-100" />
-        </div>
+        <LogOut />
       </div>
     </div>
   );
