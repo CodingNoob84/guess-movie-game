@@ -11,9 +11,7 @@ function NavBar({ session }) {
         <div>{session.user.name}</div>
         <div className="w-[30px] h-[30px] rounded-full flex justify-center items-center bg-white ring-2 ring-cyan-200">
           <Image
-            src={`${
-              session?.user?.image != "" ? session?.user.image : "/Avatar.jpg"
-            } `}
+            src={session?.user?.image}
             alt="avatar"
             width={50}
             height={50}
