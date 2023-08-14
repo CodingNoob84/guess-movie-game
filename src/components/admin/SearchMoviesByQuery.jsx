@@ -1,19 +1,15 @@
 "use client";
 import React, { useRef, useState } from "react";
+import MoviesPagination from "./MoviesPaginationByYear";
 import MoviesPaginationByYear from "./MoviesPaginationByYear";
+import MoviesPaginationByQuery from "./MoviesPaginationByQuery";
 
-function SearchMoviesByYear() {
-  const [movieYear, setMovieYear] = useState("");
+function SearchMoviesByQuery() {
+  const [movieQuery, setMovieQuery] = useState("");
   const [error, setError] = useState(false);
   const inputRef = useRef();
-  const handleInputYear = () => {
-    const parsedYear = parseInt(inputRef.current.value);
-    if (parsedYear >= 2000 && parsedYear <= 2022) {
-      setMovieYear(parsedYear);
-      setError(false);
-    } else {
-      setError(true);
-    }
+  const handleInputQuery = () => {
+    setMovieQuery(inputRef.current.value);
   };
   return (
     <>
@@ -31,7 +27,7 @@ function SearchMoviesByYear() {
               className={`px-1 py-1 border bg-blue-500 text-white rounded-r-md ${
                 error && "ring-4 ring-red-500"
               }`}
-              onClick={() => handleInputYear()}
+              onClick={() => handleInputQuery()}
             >
               Search
             </button>
@@ -44,9 +40,9 @@ function SearchMoviesByYear() {
           )}
         </div>
       </div>
-      {movieYear != "" && <MoviesPaginationByYear movieYear={movieYear} />}
+      {movieQuery != "" && <MoviesPaginationByQuery movieQuery={movieQuery} />}
     </>
   );
 }
 
-export default SearchMoviesByYear;
+export default SearchMoviesByQuery;

@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request, { params }) {
   const { movieId } = params;
-  //console.log(movieId);
+  console.log(movieId);
   //console.log(request.nextUrl.searchParams.get("foo"));
   try {
     const allartists = await prisma.movieArtistMapping.findMany({
@@ -16,6 +16,12 @@ export async function GET(request, { params }) {
             castid: true,
             name: true,
             profileimage: true,
+          },
+        },
+        movie: {
+          select: {
+            title: true,
+            year: true,
           },
         },
       },

@@ -60,6 +60,7 @@ model Movie {
   createdAt   DateTime             @default(now())
   updatedAt   DateTime             @updatedAt
   movieArtist MovieArtistMapping[] @relation("MovieMapping")
+  DailyMovies DailyMovies[]        @relation("MovieLink")
 }
 
 model Artist {
@@ -70,6 +71,9 @@ model Artist {
   createdAt    DateTime             @default(now())
   updatedAt    DateTime             @updatedAt
   movieArtist  MovieArtistMapping[] @relation("ArtistMapping")
+  DailyMovies1 DailyMovies[]        @relation("Artist1")
+  DailyMovies2 DailyMovies[]        @relation("Artist2")
+  DailyMovies3 DailyMovies[]        @relation("Artist3")
 }
 
 model MovieArtistMapping {
@@ -81,4 +85,20 @@ model MovieArtistMapping {
   artist    Artist?  @relation("ArtistMapping", fields: [artistId], references: [castid])
   artistId  Int?
   order     Int
+  gameorder Int?
+}
+
+model DailyMovies {
+  id        String   @id @default(cuid()) @map("_id")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  date      DateTime
+  movie     Movie?   @relation("MovieLink", fields: [movieId], references: [tmdbid])
+  movieId   Int?
+  artistId1 Int?
+  artist1   Artist?  @relation("Artist1", fields: [artistId1], references: [castid])
+  artistId2 Int?
+  artist2   Artist?  @relation("Artist2", fields: [artistId2], references: [castid])
+  artistId3 Int?
+  artist3   Artist?  @relation("Artist3", fields: [artistId3], references: [castid])
 }

@@ -2,22 +2,28 @@ import Image from "next/image";
 import React, { useEffect } from "react";
 //import { movieslistbyyear } from "../../../dummyData/movieslist";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { getMoviesByYear } from "@/utils/dbservices";
+import { getMoviesByQuery, getMoviesByYear } from "@/utils/dbservices";
 
-function MoviesList({ movieYear, movies, setMovies, currPage, setTotalPages }) {
+function MoviesListByQuery({
+  movieQuery,
+  movies,
+  setMovies,
+  currPage,
+  setTotalPages,
+}) {
   const {
-    data: movieslistbyyear,
+    data: movieslistbyquery,
     isLoading,
     isFetched,
-  } = useQuery(["movies", movieYear, currPage], () =>
-    getMoviesByYear(movieYear, currPage)
+  } = useQuery(["moviesbyquery", movieQuery, currPage], () =>
+    getMoviesByQuery(movieQuery, currPage)
   );
   //console.log(movieslistbyyear);
   useEffect(() => {
     if (isFetched) {
-      setTotalPages(movieslistbyyear.total_pages);
+      setTotalPages(movieslistbyquery.total_pages);
     }
-  }, [movieslistbyyear, isFetched, setTotalPages]);
+  }, [movieslistbyquery, isFetched, setTotalPages]);
 
   if (isLoading)
     return <div className="flex justify-center items-center">Loading....</div>;
@@ -39,7 +45,7 @@ function MoviesList({ movieYear, movies, setMovies, currPage, setTotalPages }) {
   };
   return (
     <div className="grid grid-cols-2 md:grid-cols-7 gap-10 m-auto">
-      {movieslistbyyear?.results?.map((movie, i) => {
+      {movieslistbyquery?.results?.map((movie, i) => {
         if (!movie.poster_path) {
           return null;
         }
@@ -75,4 +81,4 @@ function MoviesList({ movieYear, movies, setMovies, currPage, setTotalPages }) {
   );
 }
 
-export default MoviesList;
+export default MoviesListByQuery;

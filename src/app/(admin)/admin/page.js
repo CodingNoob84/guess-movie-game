@@ -1,4 +1,4 @@
-import MoviesList from "@/components/admin/MoviesPagination";
+import MoviesList from "@/components/admin/MoviesPaginationByYear";
 import SearchMoviesByYear from "@/components/admin/SearchMoviesByYear";
 import Link from "next/link";
 
@@ -8,6 +8,7 @@ export default function AdminPage() {
       <div className="border border-black p-2 flex flex-col justify-center items-center">
         <Link href="/admin/search">Search Movies</Link>
         <Link href="/admin/selectedmovies">Selected Movies</Link>
+        <Link href="/admin/setmovies">Set Movies</Link>
         <Link href="/admin/search">Scoreboard</Link>
       </div>
     </div>

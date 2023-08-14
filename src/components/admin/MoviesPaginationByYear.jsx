@@ -1,10 +1,11 @@
 "use client";
 import React, { useEffect, useState } from "react";
 
-import MoviesList from "./MoviesList";
+import MoviesList from "./MoviesListByYear";
 import { insertMovies } from "@/utils/dbservices";
+import MoviesListByYear from "./MoviesListByYear";
 
-function MoviesPagination({ movieYear }) {
+function MoviesPaginationByYear({ movieYear }) {
   const [movies, setMovies] = useState([]);
   const [currPage, setCurrPage] = useState(1);
   const [totalPages, setTotalPages] = useState(5);
@@ -40,7 +41,7 @@ function MoviesPagination({ movieYear }) {
           </button>
         </div>
       </div>
-      <MoviesList
+      <MoviesListByYear
         movieYear={movieYear}
         movies={movies}
         setMovies={setMovies}
@@ -79,4 +80,4 @@ function MoviesPagination({ movieYear }) {
   );
 }
 
-export default MoviesPagination;
+export default MoviesPaginationByYear;

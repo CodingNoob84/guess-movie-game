@@ -4,6 +4,22 @@ const BASE_URL = process.env.NEXTAUTH_URL;
 const TMDB_BASEURL = "https://api.themoviedb.org";
 const TMDB_API_KEY = "8853c1a30ce503a21a83fa3a096a85db";
 
+export async function getMoviesByQuery(query, page) {
+  try {
+    if (query) {
+      const response = await axios.get(
+        `${TMDB_BASEURL}/3/search/movie?query=${query}&api_key=${TMDB_API_KEY}&page=${page}`
+      );
+      return response.data;
+    } else {
+      return {};
+    }
+  } catch (error) {
+    console.error("Error fetching posts:", error.message);
+    return [];
+  }
+}
+
 export async function getMoviesByYear(year, page) {
   try {
     if (year) {
@@ -75,6 +91,33 @@ export async function getUpdatedArtistsById(movieId) {
 export async function insertArtists(data) {
   try {
     const response = await axios.post(`/api/artists`, data);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching posts:", error.message);
+    return [];
+  }
+}
+
+export async function MoviesAutoComplete(query) {
+  try {
+    if (query) {
+      const response = await axios.get(
+        `/api/movies/autocomplete?query=${query}`
+      );
+      console.log(response.data);
+      return response.data;
+    } else {
+      return [];
+    }
+  } catch (error) {
+    console.error("Error fetching posts:", error.message);
+    return [];
+  }
+}
+
+export async function InsertGameTable(data) {
+  try {
+    const response = await axios.post(`/api/movies/daily`, data);
     return response.data;
   } catch (error) {
     console.error("Error fetching posts:", error.message);

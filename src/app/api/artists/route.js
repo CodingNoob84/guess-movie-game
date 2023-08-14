@@ -50,6 +50,7 @@ export async function POST(request) {
           movieId: artist.tmdbId,
           artistId: artist.castid,
           order: artistorder,
+          gameorder: artistorder < 4 ? artistorder : null,
         },
       });
       await prisma.movie.update({
