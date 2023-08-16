@@ -124,3 +124,45 @@ export async function InsertGameTable(data) {
     return [];
   }
 }
+
+export async function getMovieByDate(date) {
+  try {
+    if (date) {
+      const response = await axios.get(
+        `/api/movies/daily?datequery=${new Date(date)}`
+      );
+      return response.data;
+    } else {
+      return [];
+    }
+  } catch (error) {
+    console.error("Error fetching posts:", error.message);
+    return [];
+  }
+}
+
+export async function InsertScore(data) {
+  try {
+    const response = await axios.post(`/api/scorecard`, data);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching posts:", error.message);
+    return [];
+  }
+}
+
+export async function getUserScoreByDate(userId, date) {
+  try {
+    if (date) {
+      const response = await axios.get(
+        `/api/scorecard/${userId}?datequery=${new Date(date)}`
+      );
+      return response.data;
+    } else {
+      return [];
+    }
+  } catch (error) {
+    console.error("Error fetching posts:", error.message);
+    return [];
+  }
+}

@@ -12,9 +12,32 @@ export async function GET(request) {
           lt: new Date(targetDate.getTime() + 24 * 60 * 60 * 1000), // Next day
         },
       },
+      include: {
+        artist1: {
+          select: {
+            castid: true,
+            name: true,
+            profileimage: true,
+          },
+        },
+        artist2: {
+          select: {
+            castid: true,
+            name: true,
+            profileimage: true,
+          },
+        },
+        artist3: {
+          select: {
+            castid: true,
+            name: true,
+            profileimage: true,
+          },
+        },
+      },
     });
 
-    return NextResponse.json({ movies });
+    return NextResponse.json(movies);
   } catch (error) {
     return NextResponse.json({ message: "error", error: error });
   }

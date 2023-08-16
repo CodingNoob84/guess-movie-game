@@ -38,16 +38,17 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid()) @map("_id")
+  id            String      @id @default(cuid()) @map("_id")
   name          String?
-  email         String?   @unique
+  email         String?     @unique
   emailVerified DateTime?
   image         String?
-  role          String    @default("user")
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  role          String      @default("user")
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
   accounts      Account[]
   sessions      Session[]
+  Scorecard     Scorecard[]
 }
 
 model Movie {
@@ -89,16 +90,31 @@ model MovieArtistMapping {
 }
 
 model DailyMovies {
-  id        String   @id @default(cuid()) @map("_id")
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id        String      @id @default(cuid()) @map("_id")
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
   date      DateTime
-  movie     Movie?   @relation("MovieLink", fields: [movieId], references: [tmdbid])
+  movie     Movie?      @relation("MovieLink", fields: [movieId], references: [tmdbid])
   movieId   Int?
   artistId1 Int?
-  artist1   Artist?  @relation("Artist1", fields: [artistId1], references: [castid])
+  artist1   Artist?     @relation("Artist1", fields: [artistId1], references: [castid])
   artistId2 Int?
-  artist2   Artist?  @relation("Artist2", fields: [artistId2], references: [castid])
+  artist2   Artist?     @relation("Artist2", fields: [artistId2], references: [castid])
   artistId3 Int?
-  artist3   Artist?  @relation("Artist3", fields: [artistId3], references: [castid])
+  artist3   Artist?     @relation("Artist3", fields: [artistId3], references: [castid])
+  Scorecard Scorecard[] @relation("score")
+}
+
+model Scorecard {
+  id           String       @id @default(cuid()) @map("_id")
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+  date         DateTime
+  dailymovieId String
+  dailymovie   DailyMovies? @relation("score", fields: [dailymovieId], references: [id])
+  isGuessed    Boolean
+  noOfGuesses  Int
+  score        Int
+  User         User?        @relation(fields: [userId], references: [id])
+  userId       String?
 }
