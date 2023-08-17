@@ -2,6 +2,7 @@ import NavBar from "@/components/layouts/NavBar";
 import { getServerSession } from "next-auth";
 import { AuthOptions } from "../api/auth/[...nextauth]/route";
 import { redirect } from "next/navigation";
+import Footer from "@/components/layouts/Footer";
 
 export default async function AdminLayout({ children }) {
   const session = await getServerSession(AuthOptions);
@@ -16,7 +17,7 @@ export default async function AdminLayout({ children }) {
       <div className="w-full h-full flex flex-col dark:bg-gray-900 dark:text-white">
         <NavBar session={session} />
         {children}
-        <div className="h-[50px]">Footer</div>
+        <Footer />
       </div>
     </main>
   );
