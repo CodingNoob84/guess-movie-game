@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getMovieByDate, getUserScoreByDate } from "@/utils/dbservices";
 import GuessMovieInput from "./GuessMovieInput";
 import DisplayGuesses from "./DisplayGuesses";
+import { FaGreaterThan, FaLessThan, FaRegClock } from "react-icons/fa";
 
 function ArtistPagination({ date, userId }) {
   const [currPage, setCurrPage] = useState(1);
@@ -23,24 +24,37 @@ function ArtistPagination({ date, userId }) {
   );
   console.log(scorecard);
   console.log(data);
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading)
+    return (
+      <div className="m-4">
+        <div className="flex flex-col justify-center items-center w-[300px] h-[300px] border border-black dark:border-teal-400 dark:text-white m-auto shadow-2xl">
+          <div className="flex flex-row justify-center items-center gap-5">
+            {" "}
+            <FaRegClock className=" animate-spin dark:text-white" />
+            <span className="text-center">Loading...</span>
+          </div>
+        </div>
+      </div>
+    );
   return (
-    <div className=" flex flex-col justify-center items-center w-full">
-      <div className="flex flex-row w-full md:w-1/2 m-5">
+    <div className=" flex flex-col justify-center items-center w-full mx-2">
+      <div className="flex flex-row w-4/5 md:w-1/2 m-5">
         <button
-          className="flex border border-black p-2 w-10 h-10 justify-center items-center rounded-md"
+          className="flex border border-black dark:border-teal-400 p-2 w-10 h-10 justify-center items-center rounded-md"
           onClick={() => setCurrPage(parseInt(currPage) - 1)}
           disabled={currPage <= 1}
         >
-          {"<"}
+          <FaLessThan />
         </button>
-        <div className="flex-grow text-center">{`${currPage} / 3`}</div>
+        <div className="flex flex-grow text-center items-center justify-center">
+          <span className="text-center">{`${currPage} / 3`}</span>
+        </div>
         <button
-          className="flex border border-black p-2 w-10 h-10 justify-center items-center rounded-md ml-auto"
+          className="flex border border-black dark:border-teal-400 p-2 w-10 h-10 justify-center items-center rounded-md ml-auto"
           onClick={() => setCurrPage(parseInt(currPage) + 1)}
           disabled={currPage >= 3}
         >
-          {">"}
+          <FaGreaterThan />
         </button>
       </div>
       {!isLoading &&
@@ -58,25 +72,23 @@ function ArtistPagination({ date, userId }) {
             console.log("scorecard", currentScorecard);
             return (
               <div key={i} className="flex flex-col gap-4">
-                {currentScorecard ? (
-                  currentScorecard?.isGuessed ? (
+                {currentScorecard &&
+                  (currentScorecard.isGuessed ? (
                     <div className="flex flex-row border border-green-500 ring-2 ring-green-300 p-2">
                       Right answer!!!!!!! score :{" "}
                       <span className="font-bold">
-                        {currentScorecard?.score}
+                        {currentScorecard.score}
                       </span>
                     </div>
-                  ) : (
+                  ) : currentScorecard.noOfGuesses > 2 ? (
                     <div className="flex flex-row border border-red-500 ring-2 ring-red-300 p-2">
                       Wrong answer!!!!!!! score :{" "}
                       <span className="font-bold">
-                        {currentScorecard?.score}
+                        {currentScorecard.score}
                       </span>
                     </div>
-                  )
-                ) : (
-                  <div></div>
-                )}
+                  ) : null)}
+
                 <DisplayGuesses
                   noOfGuesses={currentScorecard?.noOfGuesses || 0}
                   isGuessed={currentScorecard?.isGuessed || false}

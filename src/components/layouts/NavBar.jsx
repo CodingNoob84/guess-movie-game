@@ -2,10 +2,11 @@ import Image from "next/image";
 import React from "react";
 import { AiOutlineLogout } from "react-icons/ai";
 import LogOut from "../UIParts/LogOut";
+import ToggleTheme from "./ToggleTheme";
 
 function NavBar({ session }) {
   return (
-    <div className="flex flex-row justify-between items-center h-[50px] px-5">
+    <div className="flex flex-row justify-between items-center h-[50px] px-5 dark:bg-gray-900 dark:text-white">
       <div>Logo</div>
       <div className="flex flex-row justify-center items-center gap-2">
         <div>{session.user.name}</div>
@@ -19,6 +20,7 @@ function NavBar({ session }) {
           />
         </div>
         <LogOut />
+        <ToggleTheme />
       </div>
     </div>
   );

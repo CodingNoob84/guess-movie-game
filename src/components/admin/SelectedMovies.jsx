@@ -21,7 +21,7 @@ function SelectedMovies() {
             <div
               className={`h-[40px] m-2 p-2 text-center cursor-pointer ${
                 tab === "new"
-                  ? "bg-white rounded-md shadow-md transition duration-300 ease-in-out"
+                  ? "bg-white dark:bg-gray-600 dark:text-white rounded-md shadow-md transition duration-300 ease-in-out"
                   : ""
               }`}
               onClick={() => setTab("new")}
@@ -31,7 +31,7 @@ function SelectedMovies() {
             <div
               className={`h-[40px] m-2 p-2 text-center cursor-pointer ${
                 tab === "updated"
-                  ? "bg-white rounded-md shadow-md transition duration-300 ease-in-out"
+                  ? "bg-white dark:bg-gray-600 dark:text-white rounded-md shadow-md transition duration-300 ease-in-out"
                   : ""
               }`}
               onClick={() => setTab("updated")}

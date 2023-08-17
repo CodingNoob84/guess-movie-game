@@ -166,3 +166,17 @@ export async function getUserScoreByDate(userId, date) {
     return [];
   }
 }
+
+export async function UpdateDMArtists(data) {
+  try {
+    if (data) {
+      const response = await axios.patch(`/api/movies/daily`, data);
+      return response.data;
+    } else {
+      return {};
+    }
+  } catch (error) {
+    console.error("Error fetching posts:", error.message);
+    return [];
+  }
+}

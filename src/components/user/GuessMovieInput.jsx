@@ -84,7 +84,7 @@ function GuessMovieInput({
             onChange={() => handleAutoComplete()}
           />
           {showAC && (
-            <div className=" absolute mt-[35px] w-full flex flex-col h-20 z-30 bg-white">
+            <div className=" absolute mt-[35px] w-full flex flex-col h-20 z-30 bg-white dark:bg-gray-800 overflow-y-scroll">
               {acData.map((data, i) => (
                 <span
                   key={i}

@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import MoviesList from "./MoviesListByYear";
 import { insertMovies } from "@/utils/dbservices";
 import MoviesListByQuery from "./MoviesListByQuery";
+import { FaGreaterThan, FaLessThan } from "react-icons/fa";
 
 function MoviesPaginationByQuery({ movieQuery }) {
   const [movies, setMovies] = useState([]);
@@ -29,7 +30,7 @@ function MoviesPaginationByQuery({ movieQuery }) {
             onClick={() => setCurrPage(parseInt(currPage) - 1)}
             disabled={currPage <= 1}
           >
-            {"<"}
+            <FaLessThan />
           </button>
           <div className="flex-grow text-center">{`${currPage} / ${totalPages}`}</div>
           <button
@@ -37,7 +38,7 @@ function MoviesPaginationByQuery({ movieQuery }) {
             onClick={() => setCurrPage(parseInt(currPage) + 1)}
             disabled={currPage >= totalPages}
           >
-            {">"}
+            <FaGreaterThan />
           </button>
         </div>
       </div>
@@ -55,15 +56,15 @@ function MoviesPaginationByQuery({ movieQuery }) {
             onClick={() => setCurrPage(parseInt(currPage) - 1)}
             disabled={currPage <= 1}
           >
-            {"<"}
+            <FaLessThan />
           </button>
-          <div className="flex-grow text-center">{`${currPage} / ${totalPages}`}</div>
+          <div className="flex flex-grow justify-center items-center text-center">{`${currPage} / ${totalPages}`}</div>
           <button
             className="flex border border-black p-2 w-10 h-10 justify-center items-center rounded-md ml-auto"
             onClick={() => setCurrPage(parseInt(currPage) + 1)}
             disabled={currPage >= totalPages}
           >
-            {">"}
+            <FaGreaterThan />
           </button>
         </div>
       </div>

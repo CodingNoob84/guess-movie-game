@@ -13,7 +13,7 @@ function SearchMovies() {
             <div
               className={`h-[40px] m-2 p-2 text-center cursor-pointer ${
                 tab === "name"
-                  ? "bg-white rounded-md shadow-md transition duration-300 ease-in-out"
+                  ? "bg-white dark:bg-gray-500 dark:text-white rounded-md shadow-md transition duration-300 ease-in-out"
                   : ""
               }`}
               onClick={() => setTab("name")}
@@ -23,7 +23,7 @@ function SearchMovies() {
             <div
               className={`h-[40px] m-2 p-2 text-center cursor-pointer ${
                 tab === "year"
-                  ? "bg-white rounded-md shadow-md transition duration-300 ease-in-out"
+                  ? "bg-white dark:bg-gray-500 dark:text-white rounded-md shadow-md transition duration-300 ease-in-out"
                   : ""
               }`}
               onClick={() => setTab("year")}

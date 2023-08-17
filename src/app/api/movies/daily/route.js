@@ -34,6 +34,11 @@ export async function GET(request) {
             profileimage: true,
           },
         },
+        movie: {
+          select: {
+            title: true,
+          },
+        },
       },
     });
 
@@ -104,6 +109,29 @@ export async function POST(request) {
         allartists: allartists,
       });
     }
+  } catch (error) {
+    return NextResponse.json({ message: "error", error: error });
+  }
+}
+
+export async function PATCH(request) {
+  const data = await request.json();
+  console.dir(data);
+  try {
+    const result = await prisma.dailyMovies.update({
+      where: {
+        id: data.id,
+      },
+      data: {
+        //date: existingDailyMovie.date,
+        movieId: parseInt(data.movieId),
+        artistId1: parseInt(data.artistId1), // Issue here
+        artistId2: parseInt(data.artistId2),
+        artistId3: parseInt(data.artistId3),
+      },
+    });
+    //console.log(result);
+    return NextResponse.json(result);
   } catch (error) {
     return NextResponse.json({ message: "error", error: error });
   }

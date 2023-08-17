@@ -11,7 +11,7 @@ export default async function UserLayout({ children }) {
   }
   return (
     <main className="h-screen w-screen">
-      <div className="w-full h-full flex flex-col">
+      <div className="w-full h-full flex flex-col dark:bg-gray-900 dark:text-white">
         <NavBar session={session} />
         {children}
         <div className="h-[50px]">Footer</div>
