@@ -23,8 +23,8 @@ function AllUsersScoreboard() {
         <span className="text-center">All User ScoreBoard</span>
       </div>
       <div className="p-2">
-        {data.map((user) => (
-          <div className="flex flex-row justify-between">
+        {data.map((user, i) => (
+          <div key={i} className="flex flex-row justify-between">
             <div>{user.name}</div>
             <div>{user.totalScore}</div>
           </div>
