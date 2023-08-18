@@ -22,8 +22,8 @@ function ArtistPagination({ date, userId }) {
   } = useQuery(["scorecard", userId, date], () =>
     getUserScoreByDate(userId, date)
   );
-  console.log(scorecard);
-  console.log(data);
+  //console.log(scorecard);
+  //console.log(data);
   if (isLoading)
     return (
       <div className="m-4">
@@ -66,10 +66,10 @@ function ArtistPagination({ date, userId }) {
               // Only update state if it's different
               setMovieId(newMovieId);
             }
-            const currentScorecard = scorecard.find(
+            const currentScorecard = scorecard?.find(
               (card) => card.dailymovieId === movie.id
             );
-            console.log("scorecard", currentScorecard);
+            //console.log("scorecard", currentScorecard);
             return (
               <div key={i} className="flex flex-col gap-4">
                 {currentScorecard &&

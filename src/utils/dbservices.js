@@ -180,3 +180,27 @@ export async function UpdateDMArtists(data) {
     return [];
   }
 }
+
+export async function getAllScores() {
+  try {
+    const response = await axios.get(`/api/scorecard`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching posts:", error.message);
+    return [];
+  }
+}
+
+export async function getUserScoreBoard(userId) {
+  try {
+    if (userId) {
+      const response = await axios.get(`/api/scorecard/${userId}/totalscore`);
+      return response.data;
+    } else {
+      return { totalscore: 0 };
+    }
+  } catch (error) {
+    console.error("Error fetching posts:", error.message);
+    return [];
+  }
+}

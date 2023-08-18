@@ -25,7 +25,7 @@ export default function AdminPage() {
           Set Movies
         </Link>
         <Link
-          href="/admin/search"
+          href="/admin/scoreboard"
           className="border border-black dark:border-teal-500 p-2 w-48 text-center"
         >
           Scoreboard
