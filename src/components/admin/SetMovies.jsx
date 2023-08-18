@@ -10,41 +10,14 @@ import {
   getMovieByDate,
   getUpdatedArtistsById,
 } from "@/utils/dbservices";
-
-function Artist({ artist, movieArtistId }) {
-  if (movieArtistId === null) {
-    return (
-      <div className="flex flex-col justify-evenly w-[70px]">
-        <Image
-          src={artist.artist.profileimage}
-          alt={artist.artist.name}
-          width={60}
-          height={50}
-        />
-        <div className="text-sm break-words">{artist.artist.name}</div>
-      </div>
-    );
-  }
-  if (artist.artistId === movieArtistId) {
-    return (
-      <div className="flex flex-col justify-evenly w-[70px]">
-        <Image
-          src={artist.artist.profileimage}
-          alt={artist.artist.name}
-          width={60}
-          height={50}
-        />
-        <div className="text-sm break-words">{artist.artist.name}</div>
-      </div>
-    );
-  }
-  return null;
-}
+import ReplaceMovie from "./ReplaceMovie";
+import { MdFindReplace } from "react-icons/md";
 
 function SetMovies() {
   const [selectedMovieId, setSelectedMovieId] = useState(null);
   const [selected, setSelected] = useState(new Date());
   const [artistIds, setArtistIds] = useState([]);
+  const [replaceId, setReplaceId] = useState(null);
   const inputRef = useRef();
 
   const { data, isLoading, refetch } = useQuery(["movies", selected], () =>
@@ -95,8 +68,20 @@ function SetMovies() {
     }
   };
 
+  const handleReplaceMovie = (id) => {
+    setReplaceId(id);
+  };
+
+  const handleSelectedMovieIds = (id) => {
+    if (selectedMovieId == id) {
+      setSelectedMovieId(null);
+    } else {
+      setSelectedMovieId(movie.movieId);
+    }
+  };
+
   return (
-    <div className="flex flex-col md:flex-row justify-center m-2">
+    <div className="flex flex-col md:flex-row md:justify-evenly md:gap-2 justify-center m-2">
       <div className="flex justify-center items-center">
         <DayPicker
           mode="single"
@@ -106,7 +91,7 @@ function SetMovies() {
         />
       </div>
 
-      <div className="flex flex-col justify-center items-center gap-2 w-full">
+      <div className="flex flex-1 flex-col justify-center items-center gap-2">
         {!isLoading &&
           data?.map((movie) => (
             <div
@@ -116,11 +101,16 @@ function SetMovies() {
               <div className="flex flex-row w-full justify-between p-2 cursor-pointer">
                 <div
                   className="flex flex-1"
-                  onClick={() => setSelectedMovieId(movie.movieId)}
+                  onClick={() => handleSelectedMovieIds(movie.movieId)}
                 >
                   {movie?.movie?.title}
                 </div>
-                <div>Edit</div>
+                <div
+                  className="ml-5"
+                  onClick={() => handleReplaceMovie(movie.id)}
+                >
+                  <MdFindReplace />
+                </div>
               </div>
               {selectedMovieId === movie.movieId && !isLoadingArtists && (
                 <div className="flex flex-col gap-2 m-2">
@@ -240,6 +230,13 @@ function SetMovies() {
             </div>
           ))}
       </div>
+      {replaceId && (
+        <ReplaceMovie
+          replaceId={replaceId}
+          setReplaceId={setReplaceId}
+          refetch={refetch}
+        />
+      )}
     </div>
   );
 }
