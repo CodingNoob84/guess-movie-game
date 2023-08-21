@@ -16,9 +16,7 @@ export default function RootLayout({ children }) {
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
         <ReactQueryProvider>
-          <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
-            {children}
-          </ThemeProvider>
+          <ThemeProvider attribute="class">{children}</ThemeProvider>
         </ReactQueryProvider>
       </body>
     </html>

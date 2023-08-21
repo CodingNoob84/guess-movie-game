@@ -31,8 +31,6 @@ function SetMovies() {
     }
   );
 
-  if (isLoading) return <div>Loading</div>;
-
   const footer = <p>{`You picked ${format(selected, "PP")}.`}</p>;
 
   const handleSelectDM = (id) => {
@@ -76,7 +74,7 @@ function SetMovies() {
     if (selectedMovieId == id) {
       setSelectedMovieId(null);
     } else {
-      setSelectedMovieId(movie.movieId);
+      setSelectedMovieId(id);
     }
   };
 
@@ -92,7 +90,11 @@ function SetMovies() {
       </div>
 
       <div className="flex flex-1 flex-col justify-center items-center gap-2">
-        {!isLoading &&
+        {isLoading ? (
+          <div className="w-full border border-black dark:border-teal-400">
+            <div className="flex justify-center items-center">Loading...</div>
+          </div>
+        ) : (
           data?.map((movie) => (
             <div
               key={movie.id}
@@ -112,123 +114,132 @@ function SetMovies() {
                   <MdFindReplace />
                 </div>
               </div>
-              {selectedMovieId === movie.movieId && !isLoadingArtists && (
+              {selectedMovieId === movie.movieId && (
                 <div className="flex flex-col gap-2 m-2">
-                  <div className="flex flex-row justify-evenly border-b py-2 border-black dark:border-teal-500">
-                    {artists.map((artist) => {
-                      if (artist.artistId === movie.artistId1) {
-                        return (
-                          <div
-                            key={artist.artistId}
-                            className={`flex flex-col justify-evenly w-[70px] ${
-                              artistIds.includes(artist.artistId) &&
-                              "ring-2 ring-green-600"
-                            }`}
-                            onClick={() => handleSelectDM(artist.artistId)}
-                          >
-                            <Image
-                              src={artist.artist.profileimage}
-                              alt={artist.artist.name}
-                              width={60}
-                              height={50}
-                            />
-                            <div className="text-sm break-words">
-                              {artist.artist.name}
-                            </div>
-                          </div>
-                        );
-                      }
-                      if (artist.artistId === movie.artistId2) {
-                        return (
-                          <div
-                            key={artist.artistId}
-                            className={`flex flex-col justify-evenly w-[70px] ${
-                              artistIds.includes(artist.artistId) &&
-                              "ring-2 ring-green-600"
-                            }`}
-                            onClick={() => handleSelectDM(artist.artistId)}
-                          >
-                            <Image
-                              src={artist.artist.profileimage}
-                              alt={artist.artist.name}
-                              width={60}
-                              height={50}
-                            />
-                            <div className="text-sm break-words">
-                              {artist.artist.name}
-                            </div>
-                          </div>
-                        );
-                      }
-                      if (artist.artistId === movie.artistId3) {
-                        return (
-                          <div
-                            key={artist.artistId}
-                            className={`flex flex-col justify-evenly w-[70px] ${
-                              artistIds.includes(artist.artistId) &&
-                              "ring-2 ring-green-600"
-                            }`}
-                            onClick={() => handleSelectDM(artist.artistId)}
-                          >
-                            <Image
-                              src={artist.artist.profileimage}
-                              alt={artist.artist.name}
-                              width={60}
-                              height={50}
-                            />
-                            <div className="text-sm break-words">
-                              {artist.artist.name}
-                            </div>
-                          </div>
-                        );
-                      }
-                      return null;
-                    })}
-                  </div>
-                  <div className="flex flex-row flex-wrap justify-evenly w-full">
-                    {artists.map((artist) => {
-                      if (
-                        artist.artistId === movie.artistId1 ||
-                        artist.artistId === movie.artistId2 ||
-                        artist.artistId === movie.artistId3
-                      ) {
-                        return null;
-                      }
+                  {isLoadingArtists ? (
+                    <div className="flex justify-center items-center p-4">
+                      Loading artists...
+                    </div>
+                  ) : (
+                    <>
+                      <div className="flex flex-row justify-evenly border-b py-2 border-black dark:border-teal-500">
+                        {artists.map((artist) => {
+                          if (artist.artistId === movie.artistId1) {
+                            return (
+                              <div
+                                key={artist.artistId}
+                                className={`flex flex-col justify-evenly w-[70px] ${
+                                  artistIds.includes(artist.artistId) &&
+                                  "ring-2 ring-green-600"
+                                }`}
+                                onClick={() => handleSelectDM(artist.artistId)}
+                              >
+                                <Image
+                                  src={artist.artist.profileimage}
+                                  alt={artist.artist.name}
+                                  width={60}
+                                  height={50}
+                                />
+                                <div className="text-sm break-words">
+                                  {artist.artist.name}
+                                </div>
+                              </div>
+                            );
+                          }
+                          if (artist.artistId === movie.artistId2) {
+                            return (
+                              <div
+                                key={artist.artistId}
+                                className={`flex flex-col justify-evenly w-[70px] ${
+                                  artistIds.includes(artist.artistId) &&
+                                  "ring-2 ring-green-600"
+                                }`}
+                                onClick={() => handleSelectDM(artist.artistId)}
+                              >
+                                <Image
+                                  src={artist.artist.profileimage}
+                                  alt={artist.artist.name}
+                                  width={60}
+                                  height={50}
+                                />
+                                <div className="text-sm break-words">
+                                  {artist.artist.name}
+                                </div>
+                              </div>
+                            );
+                          }
+                          if (artist.artistId === movie.artistId3) {
+                            return (
+                              <div
+                                key={artist.artistId}
+                                className={`flex flex-col justify-evenly w-[70px] ${
+                                  artistIds.includes(artist.artistId) &&
+                                  "ring-2 ring-green-600"
+                                }`}
+                                onClick={() => handleSelectDM(artist.artistId)}
+                              >
+                                <Image
+                                  src={artist.artist.profileimage}
+                                  alt={artist.artist.name}
+                                  width={60}
+                                  height={50}
+                                />
+                                <div className="text-sm break-words">
+                                  {artist.artist.name}
+                                </div>
+                              </div>
+                            );
+                          }
+                          return null;
+                        })}
+                      </div>
+                      <div className="flex flex-row flex-wrap justify-evenly w-full">
+                        {artists.map((artist) => {
+                          if (
+                            artist.artistId === movie.artistId1 ||
+                            artist.artistId === movie.artistId2 ||
+                            artist.artistId === movie.artistId3
+                          ) {
+                            return null;
+                          }
 
-                      return (
-                        <div
-                          key={artist.artistId}
-                          className={`flex flex-col justify-evenly w-[70px] ${
-                            artistIds.includes(artist.artistId) &&
-                            "ring-2 ring-green-600"
-                          }`}
-                          onClick={() => handleSelectDM(artist.artistId)}
+                          return (
+                            <div
+                              key={artist.artistId}
+                              className={`flex flex-col justify-evenly w-[70px] ${
+                                artistIds.includes(artist.artistId) &&
+                                "ring-2 ring-green-600"
+                              }`}
+                              onClick={() => handleSelectDM(artist.artistId)}
+                            >
+                              <Image
+                                src={artist.artist.profileimage}
+                                alt={artist.artist.name}
+                                width={60}
+                                height={50}
+                              />
+                              <div className="text-sm break-words">
+                                {artist.artist.name}
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                      <div className="flex flex-row justify-center items-center">
+                        <button
+                          className="border border-black dark:border-teal-400 rounded-md p-2"
+                          onClick={() => handleDMSubmit()}
                         >
-                          <Image
-                            src={artist.artist.profileimage}
-                            alt={artist.artist.name}
-                            width={60}
-                            height={50}
-                          />
-                          <div className="text-sm break-words">
-                            {artist.artist.name}
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                  <div className="flex flex-row justify-center items-center">
-                    <button
-                      className="border border-black dark:border-teal-400 rounded-md p-2"
-                      onClick={() => handleDMSubmit()}
-                    >
-                      Submit
-                    </button>
-                  </div>
+                          Submit
+                        </button>
+                      </div>
+                    </>
+                  )}
                 </div>
               )}
             </div>
-          ))}
+          ))
+        )}
       </div>
       {replaceId && (
         <ReplaceMovie

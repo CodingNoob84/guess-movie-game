@@ -18,11 +18,11 @@ function GuessMovieInput({
   const inputRef = useRef();
   const handleAutoComplete = async () => {
     const query = inputRef.current.value;
-    console.log(query);
+    //console.log(query);
     if (query.length > 2) {
-      console.log(query);
+      //console.log(query);
       const result = await MoviesAutoComplete(query);
-      console.log(result);
+      //console.log(result);
       setAcData(result);
       setShowAC(true);
     } else {
@@ -52,7 +52,7 @@ function GuessMovieInput({
             parseInt(tries) + 1 === 1 ? 10 : parseInt(tries) + 1 === 2 ? 8 : 6,
           userId: userId,
         };
-        console.log(data);
+        //console.log(data);
         await InsertScore(data);
         refetchScore();
       } else {
@@ -64,7 +64,7 @@ function GuessMovieInput({
           score: 0,
           userId: userId,
         };
-        console.log(data);
+        //console.log(data);
         await InsertScore(data);
         refetchScore();
       }

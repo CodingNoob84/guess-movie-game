@@ -4,8 +4,8 @@ import EmptyButton from "./GuessButtons/EmptyButton";
 import FailureButton from "./GuessButtons/FailureButton";
 
 function DisplayGuesses({ noOfGuesses, isGuessed }) {
-  console.log("isGuesed", isGuessed);
-  console.log("no of guesses", noOfGuesses);
+  //console.log("isGuesed", isGuessed);
+  //console.log("no of guesses", noOfGuesses);
   if (isGuessed) {
     if (noOfGuesses === 1) {
       return (
