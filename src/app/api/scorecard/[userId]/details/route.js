@@ -4,16 +4,12 @@ import { NextRequest, NextResponse } from "next/server";
 export async function GET(request, { params }) {
   const { userId } = params;
   try {
-    const userScorecardHistory = await prisma.scorecard.findMany({
+    const userDetails = await prisma.user.findFirst({
       where: {
         userId: userId,
       },
-      orderBy: {
-        updatedAt: "desc",
-      },
-      take: 10,
     });
-    return NextResponse.json(userScorecardHistory);
+    return NextResponse.json(userDetails);
   } catch (error) {
     return NextResponse.json({ message: "error", error: error });
   }

@@ -26,7 +26,7 @@ function SelectedMovies() {
               }`}
               onClick={() => setTab("new")}
             >
-              New Movies
+              New Movies {!isLoading && `(${data.newmovies.length})`}
             </div>
             <div
               className={`h-[40px] m-2 p-2 text-center cursor-pointer ${
@@ -36,7 +36,7 @@ function SelectedMovies() {
               }`}
               onClick={() => setTab("updated")}
             >
-              Updated Movies
+              Updated Movies {!isLoading && `(${data.updatedmovies.length})`}
             </div>
           </div>
           <div className="flex-1">
