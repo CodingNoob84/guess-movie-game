@@ -215,6 +215,16 @@ export async function searchMovies(query) {
   }
 }
 
+export async function searchNewMovies(query) {
+  try {
+    const response = await axios.get(`/api/movies/newmovies?query=${query}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching posts:", error.message);
+    return [];
+  }
+}
+
 export async function replaceMovie(data) {
   try {
     if (data) {

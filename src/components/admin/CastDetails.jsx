@@ -62,11 +62,16 @@ function CastDetails({ tmdbId, refetch, setShowOnlineArtists }) {
                 )
               }
             >
-              <Image
+              {/* <Image
                 src={`https://image.tmdb.org/t/p/w500${cast.profile_path}`}
                 alt={cast.name}
                 width={60}
                 height={50}
+              /> */}
+              <img
+                src={`https://image.tmdb.org/t/p/w500${cast.profile_path}`}
+                alt={cast.name}
+                className="w-[60px] h-[90px]"
               />
               <div className="text-sm break-words">{cast.name}</div>
             </div>

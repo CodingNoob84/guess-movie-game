@@ -43,7 +43,7 @@ function UpdatedCastDetails({ tmdbId }) {
           return (
             <div
               key={cast.artistId}
-              className={`flex flex-col w-[60px] mx-2 ${
+              className={`flex flex-col w-[60px] h-[140px] mx-2 ${
                 artists.some((_artist) => _artist.castid === cast.artistId) &&
                 "ring-2 ring-green-600"
               }`}
@@ -55,11 +55,16 @@ function UpdatedCastDetails({ tmdbId }) {
                 )
               }
             >
-              <Image
+              {/* <Image
                 src={cast.artist.profileimage}
                 alt={cast.artist.name}
                 width={60}
                 height={50}
+              /> */}
+              <img
+                src={cast.artist.profileimage}
+                alt={cast.artist.name}
+                className="w-[60px] h-[90px]"
               />
               <div className="text-sm break-words">{cast.artist.name}</div>
             </div>
